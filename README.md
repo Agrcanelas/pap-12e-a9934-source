@@ -17,8 +17,8 @@ Sistema de gestão de biblioteca online que permite aos utilizadores pesquisar l
 - [X] Desenvolver um site dinâmico com base de dados
 - [X] Implementar sistema de autenticação de utilizadores
 - [X] Criar interface responsiva e intuitiva
-- [ ] Implementar funcionalidade CRUD completa
-- [ ] Fazer deploy da aplicação
+- [X] Implementar funcionalidade CRUD completa
+
 
 ## 🛠️ Stack Tecnológica
 
