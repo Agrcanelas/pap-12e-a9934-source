@@ -1,0 +1,164 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: #2e7d32;
+  padding: 20px;
+  color: white;
+}
+
+.sidebar h2 {
+  margin-top: 20px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.menu a {
+  display: block;
+  padding: 12px 0;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.menu a:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.main {
+  margin-left: 280px;
+  padding: 40px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 48px;
+}
+
+.subtitulo {
+  font-size: 32px;
+  color: #2e7d32;
+  margin-top: 10px;
+}
+
+hr {
+  width: 60px;
+  border: 4px solid #2e7d32;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.caixa,
+.caixa-anuncio {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.caixa {
+  padding: 25px;
+}
+
+.caixa h2 {
+  margin-top: 0;
+  color: #2e7d32;
+}
+
+.caixa-anuncio {
+  display: flex;
+  gap: 20px;
+}
+
+.caixa-anuncio img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.anuncio-info h3 {
+  margin: 0;
+  font-size: 26px;
+  color: #2e7d32;
+}
+
+.btn {
+  padding: 10px 18px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background: #256628;
+}
+
+footer {
+  margin-top: 40px;
+  background: #ddd;
+  padding: 20px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.caixa-login {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.caixa-login h1 {
+  color: #2e7d32;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.mensagem {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.mensagem a {
+  color: #2e7d32;
+  text-decoration: none;
+}
+
+.mensagem a:hover {
+  text-decoration: underline;
+}
