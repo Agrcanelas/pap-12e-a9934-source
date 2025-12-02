@@ -10,19 +10,34 @@ if ($conn->connect_error) {
     die("Ligação falhou: " . $conn->connect_error);
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $nome = $_POST['nome'];
     $email = $_POST['email'];
-    $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $pass = $_POST['password'];
 
-    $stmt = $conn->prepare("INSERT INTO utilizadores (nome, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $nome, $email, $pass);
+    $stmt = $conn->prepare("SELECT id, nome, password FROM utilizadores WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if($stmt->execute()){
-        $mensagem = "Registo concluído! Agora podes fazer login.";
+    if ($result->num_rows === 1) {
+
+        $user = $result->fetch_assoc();
+
+        if (password_verify($pass, $user['password'])) {
+
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['nome'] = $user['nome'];
+
+            header("Location: index.php");
+            exit();
+
+        } else {
+            $mensagem = "Password incorreta!";
+        }
+
     } else {
-        $mensagem = "Erro no registo: " . $stmt->error;
+        $mensagem = "Conta não encontrada!";
     }
 
     $stmt->close();
@@ -36,14 +51,14 @@ $conn->close();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registar - Refúgio Animal</title>
+<title>Login - Refúgio Animal</title>
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 
 <div class="caixa-login">
 
-    <h1>Criar Conta</h1>
+    <h1>Iniciar Sessão</h1>
 
     <?php if(isset($mensagem)) { ?>
         <p style="text-align:center; color:#d32f2f; margin-bottom:15px;">
@@ -52,9 +67,6 @@ $conn->close();
     <?php } ?>
 
     <form method="POST" style="max-width:400px; margin:auto;">
-        
-        <label>Nome</label>
-        <input type="text" name="nome" required>
 
         <label>Email</label>
         <input type="email" name="email" required>
@@ -62,12 +74,12 @@ $conn->close();
         <label>Palavra-passe</label>
         <input type="password" name="password" required>
 
-        <button type="submit" class="btn" style="width:100%;">Registar</button>
+        <button type="submit" class="btn" style="width:100%;">Entrar</button>
     </form>
 
     <p class="mensagem" style="margin-top:15px;">
-        Já tens conta?
-        <a href="login.php">Faz login aqui.</a>
+        Ainda não tens conta?
+        <a href="registar.php">Cria uma aqui.</a>
     </p>
 
 </div>
