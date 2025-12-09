@@ -26,24 +26,7 @@ session_start();
     <div class="subtitulo">Animais disponíveis</div>
     <hr>
 
-    <!-- Exemplos de anúncios -->
-    <div class="caixa-anuncio">
-        <img src="imagens/exemplo1.jpg" alt="Animal 1">
-        <div class="anuncio-info">
-            <h3>Rex - Cão adulto</h3>
-            <p>Um cão muito amigável, adora crianças e passeios.</p>
-            <button class="btn">Ver Detalhes</button>
-        </div>
-    </div>
-
-    <div class="caixa-anuncio">
-        <img src="imagens/exemplo2.jpg" alt="Animal 2">
-        <div class="anuncio-info">
-            <h3>Luna - Gato jovem</h3>
-            <p>Gata brincalhona, procura lar com amor e carinho.</p>
-            <button class="btn">Ver Detalhes</button>
-        </div>
-    </div>
+   
 
     <footer>
         <?php if(isset($_SESSION['id'])): ?>
