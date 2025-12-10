@@ -26,8 +26,6 @@ session_start();
     <div class="subtitulo">Animais disponíveis</div>
     <hr>
 
-   
-
     <footer>
         <?php if(isset($_SESSION['id'])): ?>
             <div>
