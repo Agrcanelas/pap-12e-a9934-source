@@ -25,7 +25,6 @@ $conn->close();
 <div class="menu">
     <a href="index.php">Início</a>
     <a href="anuncios.php">Anúncios</a>
-    <a href="meus_anuncios.php">Meus Anúncios</a>
     <?php if(isset($_SESSION['id'])): ?>
         <a href="perfil.php">Perfil</a>
         <a href="logout.php">Logout</a>
@@ -56,5 +55,6 @@ $conn->close();
 </div>
 </body>
 </html>
+
 
 
