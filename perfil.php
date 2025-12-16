@@ -9,8 +9,11 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pap";
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 if($conn->connect_error) die("Ligação falhou: ".$conn->connect_error);
+
+$mensagem_foto = "";
 
 // Buscar foto de perfil se não estiver definida
 if(!isset($_SESSION['foto'])){
@@ -25,7 +28,6 @@ if(!isset($_SESSION['foto'])){
 }
 
 // Upload de nova foto
-$mensagem_foto = "";
 if(isset($_FILES['foto'])){
     $file = $_FILES['foto'];
     $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
@@ -61,35 +63,21 @@ $conn->close();
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perfil - Refúgio Animal</title>
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 
-<div class="sidebar">
-<h2>Refúgio Animal</h2>
-<div class="menu">
-    <a href="index.php">Início</a>
-    <a href="anuncios.php">Anúncios</a>
-    <a href="criar_anuncio.php">Criar Anúncio</a>
-    <a href="perfil.php">Perfil</a>
-    <a href="logout.php">Logout</a>
-</div>
-</div>
+<?php include 'sidebar.php'; ?>
 
 <div class="main">
 <h1>Perfil</h1>
 <div class="subtitulo">Área do utilizador</div>
 <hr>
 
-<!-- Foto de Perfil -->
 <div class="caixa">
     <h2>Foto de Perfil</h2>
-    <img src="uploads/<?= htmlspecialchars($_SESSION['foto']) ?>" 
-         alt="Foto de Perfil" 
-         style="width:150px; height:150px; border-radius:50%; object-fit:cover;">
-
+    <img src="uploads/<?= htmlspecialchars($_SESSION['foto']) ?>" alt="Foto de Perfil" style="width:150px; height:150px; border-radius:50%; object-fit:cover;">
     <form method="POST" enctype="multipart/form-data" style="margin-top:15px;">
         <label>Trocar Foto de Perfil</label>
         <input type="file" name="foto" accept="image/*" required>
@@ -98,14 +86,12 @@ $conn->close();
     <?php if($mensagem_foto) echo "<p style='color:green;'>$mensagem_foto</p>"; ?>
 </div>
 
-<!-- Dados do utilizador -->
 <div class="caixa">
     <h2>Dados da conta</h2>
     <p><strong>Nome:</strong> <?= htmlspecialchars($_SESSION['nome']) ?></p>
     <p><strong>ID do utilizador:</strong> <?= $_SESSION['id'] ?></p>
 </div>
 
-<!-- Meus Anúncios -->
 <div class="caixa">
     <h2>Meus Anúncios</h2>
     <?php if($result->num_rows === 0): ?>
@@ -120,7 +106,6 @@ $conn->close();
                 <p><strong>Raça:</strong> <?= htmlspecialchars($row['raca']) ?></p>
                 <p><strong>Região:</strong> <?= htmlspecialchars($row['regiao']) ?></p>
                 <p><?= nl2br(htmlspecialchars($row['descricao'])) ?></p>
-                <!-- Aqui podes adicionar Editar/Apagar se quiser -->
             </div>
         </div>
         <?php endwhile; ?>
@@ -130,6 +115,3 @@ $conn->close();
 </div>
 </body>
 </html>
-
-
-

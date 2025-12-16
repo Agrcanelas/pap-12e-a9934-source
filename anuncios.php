@@ -4,13 +4,13 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pap";
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 if($conn->connect_error) die("Ligação falhou: ".$conn->connect_error);
 
 $result = $conn->query("SELECT * FROM animais ORDER BY data_publicacao DESC");
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -20,19 +20,7 @@ $conn->close();
 </head>
 <body>
 
-<div class="sidebar">
-<h2>Refúgio Animal</h2>
-<div class="menu">
-    <a href="index.php">Início</a>
-    <a href="anuncios.php">Anúncios</a>
-    <?php if(isset($_SESSION['id'])): ?>
-        <a href="perfil.php">Perfil</a>
-        <a href="logout.php">Logout</a>
-    <?php else: ?>
-        <a href="registar.php">Registar / Login</a>
-    <?php endif; ?>
-</div>
-</div>
+<?php include 'sidebar.php'; ?>
 
 <div class="main">
 <h1>Anúncios</h1>
@@ -51,10 +39,10 @@ $conn->close();
     </div>
 </div>
 <?php endwhile; ?>
-
 </div>
 </body>
 </html>
+
 
 
 

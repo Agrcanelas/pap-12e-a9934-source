@@ -9,18 +9,19 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pap";
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 if($conn->connect_error) die("Ligação falhou: ".$conn->connect_error);
 
 $mensagem = "";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $nome = $_POST['nome'];
-    $especie = $_POST['especie'];
-    $idade = $_POST['idade'];
-    $raca = $_POST['raca'];
-    $regiao = $_POST['regiao'];
-    $descricao = $_POST['descricao'];
+    $nome = trim($_POST['nome']);
+    $especie = trim($_POST['especie']);
+    $idade = trim($_POST['idade']);
+    $raca = trim($_POST['raca']);
+    $regiao = trim($_POST['regiao']);
+    $descricao = trim($_POST['descricao']);
     $user_id = $_SESSION['id'];
 
     // Upload da foto
@@ -56,16 +57,7 @@ $conn->close();
 </head>
 <body>
 
-<div class="sidebar">
-<h2>Refúgio Animal</h2>
-<div class="menu">
-    <a href="index.php">Início</a>
-    <a href="anuncios.php">Anúncios</a>
-    <a href="meus_anuncios.php">Meus Anúncios</a>
-    <a href="perfil.php">Perfil</a>
-    <a href="logout.php">Logout</a>
-</div>
-</div>
+<?php include 'sidebar.php'; ?>
 
 <div class="main">
 <h1>Criar Anúncio</h1>
@@ -103,3 +95,4 @@ $conn->close();
 </div>
 </body>
 </html>
+

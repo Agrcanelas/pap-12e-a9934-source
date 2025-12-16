@@ -11,23 +11,14 @@ session_start();
 </head>
 <body>
 
-<div class="sidebar">
-    <h2>Refúgio Animal</h2>
-    <div class="menu">
-        <a href="index.php">Início</a>
-        <a href="anuncios.php">Anúncios</a>
-        <a href="servicos.php">Sobre o Projeto</a>
-        <a href="registar.php">Registar / Login</a>
-    </div>
-</div>
+<?php include 'sidebar.php'; ?>
 
 <div class="main">
     <h1>Refúgio Animal</h1>
     <div class="subtitulo">Início</div>
     <hr>
 
-    <p>Bem-vindo ao Refúgio Animal, a plataforma onde podes divulgar, adotar ou ajudar animais.
-       Funciona como um "OLX animal" — rápido, simples e gratuito!</p>
+    <p>Bem-vindo ao Refúgio Animal, a plataforma onde podes divulgar, adotar ou ajudar animais. Funciona como um "OLX animal" — rápido, simples e gratuito!</p>
 
     <div class="caixa">
         <h2>O que podes fazer?</h2>
@@ -40,16 +31,6 @@ session_start();
     </div>
 </div>
 
-<footer>
-        <?php if(isset($_SESSION['id'])): ?>
-            <div>
-                Olá, <?= htmlspecialchars($_SESSION['nome']) ?>
-                <a href="perfil.php" class="btn">Ver Perfil</a>
-            </div>
-        <?php else: ?>
-            <div>Refúgio Animal © 2025 — Desenvolvido para a PAP</div>
-        <?php endif; ?>
-    </footer>
 
 </body>
 </html>
