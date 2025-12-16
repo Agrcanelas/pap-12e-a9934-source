@@ -9,7 +9,6 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pap";
-
 $conn = new mysqli($servername, $username, $password, $dbname);
 if($conn->connect_error) die("Ligação falhou: ".$conn->connect_error);
 
@@ -23,6 +22,30 @@ if(!isset($_SESSION['foto'])){
         $_SESSION['foto'] = $foto ?? 'default.png';
     }
     $stmt->close();
+}
+
+// Upload de nova foto
+$mensagem_foto = "";
+if(isset($_FILES['foto'])){
+    $file = $_FILES['foto'];
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $allowed = ['jpg','jpeg','png','gif'];
+    if(in_array($ext, $allowed)){
+        $newName = 'user_' . $_SESSION['id'] . '.' . $ext;
+        $destination = 'uploads/'.$newName;
+        if(move_uploaded_file($file['tmp_name'], $destination)){
+            $stmt = $conn->prepare("UPDATE utilizadores SET foto = ? WHERE id = ?");
+            $stmt->bind_param("si", $newName, $_SESSION['id']);
+            $stmt->execute();
+            $stmt->close();
+            $_SESSION['foto'] = $newName;
+            $mensagem_foto = "Foto atualizada com sucesso!";
+        } else {
+            $mensagem_foto = "Erro ao enviar a foto.";
+        }
+    } else {
+        $mensagem_foto = "Formato inválido. Use jpg, png ou gif.";
+    }
 }
 
 // Buscar anúncios do utilizador
@@ -66,6 +89,13 @@ $conn->close();
     <img src="uploads/<?= htmlspecialchars($_SESSION['foto']) ?>" 
          alt="Foto de Perfil" 
          style="width:150px; height:150px; border-radius:50%; object-fit:cover;">
+
+    <form method="POST" enctype="multipart/form-data" style="margin-top:15px;">
+        <label>Trocar Foto de Perfil</label>
+        <input type="file" name="foto" accept="image/*" required>
+        <button type="submit" class="btn">Atualizar Foto</button>
+    </form>
+    <?php if($mensagem_foto) echo "<p style='color:green;'>$mensagem_foto</p>"; ?>
 </div>
 
 <!-- Dados do utilizador -->
@@ -90,11 +120,7 @@ $conn->close();
                 <p><strong>Raça:</strong> <?= htmlspecialchars($row['raca']) ?></p>
                 <p><strong>Região:</strong> <?= htmlspecialchars($row['regiao']) ?></p>
                 <p><?= nl2br(htmlspecialchars($row['descricao'])) ?></p>
-                <!-- Opcional: botões Editar/Apagar -->
-                <!--
-                <a href="editar_anuncio.php?id=<?= $row['ID Primária'] ?>" class="btn">Editar</a>
-                <a href="apagar_anuncio.php?id=<?= $row['ID Primária'] ?>" class="btn" onclick="return confirm('Tem certeza?')">Apagar</a>
-                -->
+                <!-- Aqui podes adicionar Editar/Apagar se quiser -->
             </div>
         </div>
         <?php endwhile; ?>
@@ -104,5 +130,6 @@ $conn->close();
 </div>
 </body>
 </html>
+
 
 
